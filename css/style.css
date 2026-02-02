@@ -89,6 +89,17 @@ body {
     animation: fadeInUp 1s ease-out 0.3s both;
 }
 
+.hero-description {
+    color: var(--white);
+    font-size: 1.3rem;
+    margin-top: 20px;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+    animation: fadeInUp 1s ease-out 0.6s both;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -124,7 +135,7 @@ section p {
 
 /* Contador Section */
 #countdown-section {
-    background: rgba(30, 58, 138, 0.95);
+    background: rgba(0, 0, 0, 0.8);
     color: var(--white);
 }
 
@@ -192,6 +203,19 @@ section p {
 /* Aportaciones Section */
 #aportaciones {
     background: rgba(243, 244, 246, 0.95);
+}
+
+.aportacion-text {
+    font-size: 1.3rem;
+    line-height: 1.8;
+    max-width: 700px;
+    margin: 0 auto 25px;
+    text-align: center;
+}
+
+.aportacion-text strong {
+    color: var(--primary-blue);
+    font-size: 1.5em;
 }
 
 .aportacion-opciones {
