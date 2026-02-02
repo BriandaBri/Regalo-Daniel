@@ -361,6 +361,14 @@ section p {
     font-style: italic;
 }
 
+.sorteo-info-small {
+    text-align: center;
+    color: #d1d5db;
+    font-size: 0.95rem;
+    margin-top: 20px;
+    font-style: italic;
+}
+
 .aportacion-opciones {
     display: flex;
     gap: 12px;
