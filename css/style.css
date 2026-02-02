@@ -135,12 +135,15 @@ section p {
 
 /* Contador Section */
 #countdown-section {
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.9);
     color: var(--white);
+    border-top: 3px solid var(--secondary-blue);
+    border-bottom: 3px solid var(--secondary-blue);
 }
 
 #countdown-section h2 {
     color: var(--white);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .countdown {
@@ -151,12 +154,13 @@ section p {
 }
 
 .countdown-item {
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(59, 130, 246, 0.3);
     backdrop-filter: blur(10px);
     padding: 20px 25px;
     border-radius: 15px;
-    border: 2px solid rgba(255, 255, 255, 0.3);
+    border: 3px solid rgba(255, 255, 255, 0.5);
     min-width: 100px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
 }
 
 .countdown-number {
@@ -164,15 +168,17 @@ section p {
     font-size: 2.5rem;
     font-weight: bold;
     color: var(--white);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 .countdown-label {
     display: block;
     font-size: 0.85rem;
     color: var(--white);
-    opacity: 0.9;
+    opacity: 1;
     text-transform: uppercase;
     letter-spacing: 1px;
+    font-weight: bold;
 }
 
 /* About Section con humor */
@@ -216,6 +222,39 @@ section p {
 .aportacion-text strong {
     color: var(--primary-blue);
     font-size: 1.5em;
+}
+
+/* Payment Section */
+.payment-section {
+    text-align: center;
+    margin: 40px auto;
+}
+
+.btn-paypal {
+    display: inline-block;
+    background: linear-gradient(135deg, #0070ba 0%, #1546a0 100%);
+    color: var(--white);
+    padding: 18px 50px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 50px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 25px rgba(0, 112, 186, 0.4);
+    border: none;
+}
+
+.btn-paypal:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(0, 112, 186, 0.6);
+    background: linear-gradient(135deg, #005ea6 0%, #123d8f 100%);
+}
+
+.payment-note {
+    margin-top: 15px;
+    font-size: 0.95rem;
+    color: var(--text-light);
+    font-style: italic;
 }
 
 .aportacion-opciones {
