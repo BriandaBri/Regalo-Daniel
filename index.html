@@ -7,12 +7,19 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    <!-- Hero Section - Foto principal y contador -->
+    <!-- Hero Section - Foto principal -->
     <section id="hero">
         <div class="hero-overlay"></div>
         <div class="hero-content">
-            <img src="img/daniel-hero.jpg" alt="Daniel" class="hero-image">
+            <img src="img/daniel-hero.jpeg" alt="Daniel" class="hero-image">
             <h1>¡Celebremos el cumpleaños de Daniel!</h1>
+        </div>
+    </section>
+
+    <!-- Contador -->
+    <section id="countdown-section">
+        <div class="container">
+            <h2>⏰ Cuenta Atrás</h2>
             <div id="countdown" class="countdown">
                 <div class="countdown-item">
                     <span id="days" class="countdown-number">00</span>
@@ -34,43 +41,24 @@
         </div>
     </section>
 
-    <!-- Sobre Daniel -->
+    <!-- Sobre Daniel con humor -->
     <section id="about">
         <div class="container">
-            <h2>🎂 El Cumpleañero</h2>
+            <h2>🎂 Sobre Daniel</h2>
             <p class="about-text">
-                Daniel es una persona increíble que merece una celebración especial. 
-                Este 7 de marzo de 2026 cumple años y queremos sorprenderle con algo único:
-                <strong>una botella de licor personalizada con su foto</strong> y todos vuestros buenos deseos.
+                Daniel es una persona sencilla, humilde, que no necesita nada material para ser feliz...
+            </p>
+            <p class="about-text-big">
+                Bueno sí, <strong>DINERO</strong> 💰
             </p>
         </div>
     </section>
 
-    <!-- Objetivo del Regalo -->
-    <section id="objetivo">
-        <div class="container">
-            <h2>🎁 El Regalo</h2>
-            <div class="objetivo-content">
-                <div class="objetivo-card">
-                    <div class="icon">🍾</div>
-                    <h3>Licor Premium Personalizado</h3>
-                    <p>Una botella exclusiva con la foto de Daniel y dedicatorias de todos</p>
-                </div>
-            </div>
-            <div class="progress-bar">
-                <div class="progress-fill" id="progressBar"></div>
-            </div>
-            <p class="progress-text">
-                <span id="currentAmount">0</span>€ recaudados de <span id="goalAmount">150</span>€
-            </p>
-        </div>
-    </section>
-
-    <!-- Aportaciones -->
+    <!-- Aportaciones + Sorteo -->
     <section id="aportaciones">
         <div class="container">
             <h2>💙 Haz tu Aportación</h2>
-            <p>Cualquier cantidad es bienvenida. ¡Ayúdanos a hacerlo realidad!</p>
+            <p>Cualquier cantidad es bienvenida para hacer su día especial</p>
             
             <div class="aportacion-opciones">
                 <button class="amount-btn" data-amount="5">5€</button>
@@ -85,48 +73,35 @@
                 <input type="email" id="participantEmail" placeholder="Tu email" required>
                 <textarea id="participantMessage" placeholder="Mensaje para Daniel (opcional)" rows="3"></textarea>
                 
-                <div class="photo-upload">
-                    <label for="photoUpload" class="upload-label">
-                        📸 Sube una foto con Daniel (opcional)
-                    </label>
-                    <input type="file" id="photoUpload" accept="image/*">
-                    <div id="photoPreview"></div>
-                </div>
-
                 <button id="contributeBtn" class="btn-primary">Continuar al Pago</button>
             </div>
 
-            <p class="disclaimer">
-                ⚡ Todos los participantes entran automáticamente en el sorteo de una sorpresa especial
-            </p>
-        </div>
-    </section>
-
-    <!-- Galería de Fotos -->
-    <section id="galeria">
-        <div class="container">
-            <h2>📸 Galería de Recuerdos</h2>
-            <p>Fotos compartidas por los participantes</p>
-            <div id="photosGrid" class="photos-grid">
-                <!-- Las fotos se cargarán dinámicamente desde Firebase -->
-                <div class="no-photos">
-                    <p>Aún no hay fotos. ¡Sé el primero en compartir un recuerdo!</p>
-                </div>
+            <div class="sorteo-info">
+                <p class="sorteo-text">
+                    🎲 <strong>Sorteo:</strong> Todos los participantes entrarán automáticamente en el sorteo 
+                    de una sorpresa especial que se realizará el día de su cumpleaños. ¡Suerte!
+                </p>
             </div>
         </div>
     </section>
 
-    <!-- Sorteo -->
-    <section id="sorteo">
+    <!-- Galería -->
+    <section id="galeria">
         <div class="container">
-            <h2>🎲 Sorteo Especial</h2>
-            <div class="sorteo-card">
-                <div class="icon">🎁</div>
-                <h3>Participa y Gana</h3>
-                <p>Todos los que aporten entrarán automáticamente en el sorteo de una sorpresa especial el día del cumpleaños</p>
-                <div class="participants-count">
-                    <strong id="participantsCount">0</strong> participantes
+            <h2>📸 Galería de Recuerdos</h2>
+            <p>Momentos especiales con Daniel compartidos por todos</p>
+            
+            <div id="photosGrid" class="photos-grid">
+                <!-- Las fotos se cargarán dinámicamente desde Firebase -->
+                <div class="no-photos">
+                    <p>Aún no hay fotos. ¡Sé el primero en compartir un recuerdo con Dani!</p>
                 </div>
+            </div>
+
+            <div class="upload-section">
+                <button id="uploadPhotoBtn" class="btn-upload">
+                    📸 Pon tu foto con Dani
+                </button>
             </div>
         </div>
     </section>
@@ -138,6 +113,18 @@
             <p class="small">© 2026 - Cumpleaños Daniel</p>
         </div>
     </footer>
+
+    <!-- Modal para subir foto (oculto por defecto) -->
+    <div id="uploadModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>Sube tu foto con Daniel</h3>
+            <input type="text" id="uploaderName" placeholder="Tu nombre" required>
+            <input type="file" id="photoFile" accept="image/*" required>
+            <div id="uploadPreview"></div>
+            <button id="submitPhotoBtn" class="btn-primary">Subir Foto</button>
+        </div>
+    </div>
 
     <!-- Scripts -->
     <script src="js/script.js"></script>

@@ -1,18 +1,13 @@
 // Configuración
 const BIRTHDAY_DATE = new Date('2026-03-07T00:00:00').getTime();
-const GOAL_AMOUNT = 150; // Objetivo en euros
-let currentAmount = 0;
 let selectedAmount = 0;
 
 // Inicializar cuando carga la página
 document.addEventListener('DOMContentLoaded', function() {
     initCountdown();
     initAmountButtons();
-    initPhotoUpload();
     initContributeButton();
-    updateProgress();
-    loadPhotos();
-    updateParticipantsCount();
+    initUploadModal();
 });
 
 // ============ CONTADOR REGRESIVO ============
@@ -26,7 +21,7 @@ function updateCountdown() {
     const distance = BIRTHDAY_DATE - now;
 
     if (distance < 0) {
-        document.getElementById('countdown').innerHTML = '<h2>¡Es el día del cumpleaños! 🎉</h2>';
+        document.getElementById('countdown').innerHTML = '<h2 style="color: white;">¡Es el día del cumpleaños! 🎉</h2>';
         return;
     }
 
@@ -48,7 +43,6 @@ function initAmountButtons() {
 
     amountButtons.forEach(button => {
         button.addEventListener('click', function() {
-            // Remover selección de otros botones
             amountButtons.forEach(btn => btn.classList.remove('selected'));
             this.classList.add('selected');
             
@@ -63,28 +57,6 @@ function initAmountButtons() {
     });
 }
 
-// ============ SUBIDA DE FOTOS ============
-function initPhotoUpload() {
-    const photoUpload = document.getElementById('photoUpload');
-    const photoPreview = document.getElementById('photoPreview');
-
-    photoUpload.addEventListener('change', function(e) {
-        const file = e.target.files[0];
-        if (file && file.type.startsWith('image/')) {
-            const reader = new FileReader();
-            
-            reader.onload = function(event) {
-                photoPreview.innerHTML = `
-                    <img src="${event.target.result}" alt="Preview">
-                    <p style="margin-top: 10px; color: #10b981;">✓ Foto seleccionada</p>
-                `;
-            };
-            
-            reader.readAsDataURL(file);
-        }
-    });
-}
-
 // ============ BOTÓN DE CONTRIBUCIÓN ============
 function initContributeButton() {
     const contributeBtn = document.getElementById('contributeBtn');
@@ -93,7 +65,6 @@ function initContributeButton() {
         const name = document.getElementById('participantName').value.trim();
         const email = document.getElementById('participantEmail').value.trim();
         const message = document.getElementById('participantMessage').value.trim();
-        const photoFile = document.getElementById('photoUpload').files[0];
 
         // Validaciones
         if (!name) {
@@ -111,13 +82,11 @@ function initContributeButton() {
             return;
         }
 
-        // Aquí iría la lógica de pago
-        // Por ahora mostramos un mensaje
+        // Aquí iría la lógica de pago (Stripe/PayPal)
         alert(`¡Gracias ${name}!\n\nEn el siguiente paso configuraremos el pago de ${selectedAmount}€.\n\nPor ahora esta es una vista previa del diseño.`);
         
         // TODO: Integrar con Stripe/PayPal
         // TODO: Guardar datos en Firebase
-        // TODO: Subir foto a Firebase Storage
     });
 }
 
@@ -126,32 +95,79 @@ function isValidEmail(email) {
     return re.test(email);
 }
 
-// ============ BARRA DE PROGRESO ============
-function updateProgress() {
-    const progressBar = document.getElementById('progressBar');
-    const currentAmountEl = document.getElementById('currentAmount');
-    
-    const percentage = Math.min((currentAmount / GOAL_AMOUNT) * 100, 100);
-    progressBar.style.width = percentage + '%';
-    currentAmountEl.textContent = currentAmount;
+// ============ MODAL DE SUBIDA DE FOTOS ============
+function initUploadModal() {
+    const modal = document.getElementById('uploadModal');
+    const uploadBtn = document.getElementById('uploadPhotoBtn');
+    const closeBtn = document.querySelector('.close');
+    const photoFile = document.getElementById('photoFile');
+    const uploadPreview = document.getElementById('uploadPreview');
+    const submitBtn = document.getElementById('submitPhotoBtn');
+
+    // Abrir modal
+    uploadBtn.addEventListener('click', function() {
+        modal.style.display = 'block';
+    });
+
+    // Cerrar modal
+    closeBtn.addEventListener('click', function() {
+        modal.style.display = 'none';
+        resetUploadForm();
+    });
+
+    // Cerrar al hacer click fuera del modal
+    window.addEventListener('click', function(event) {
+        if (event.target == modal) {
+            modal.style.display = 'none';
+            resetUploadForm();
+        }
+    });
+
+    // Preview de la foto
+    photoFile.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file && file.type.startsWith('image/')) {
+            const reader = new FileReader();
+            
+            reader.onload = function(event) {
+                uploadPreview.innerHTML = `<img src="${event.target.result}" alt="Preview">`;
+            };
+            
+            reader.readAsDataURL(file);
+        }
+    });
+
+    // Subir foto
+    submitBtn.addEventListener('click', function() {
+        const name = document.getElementById('uploaderName').value.trim();
+        const file = photoFile.files[0];
+
+        if (!name) {
+            alert('Por favor, introduce tu nombre');
+            return;
+        }
+
+        if (!file) {
+            alert('Por favor, selecciona una foto');
+            return;
+        }
+
+        // Aquí iría la lógica de subida a Firebase
+        alert(`¡Gracias ${name}!\n\nTu foto se subirá cuando configuremos Firebase.\n\nPor ahora esta es una vista previa del diseño.`);
+        
+        modal.style.display = 'none';
+        resetUploadForm();
+
+        // TODO: Subir foto a Firebase Storage
+        // TODO: Guardar metadata en Firestore
+        // TODO: Actualizar galería
+    });
 }
 
-// ============ GALERÍA DE FOTOS ============
-function loadPhotos() {
-    // Aquí cargaremos las fotos desde Firebase
-    // Por ahora dejamos el mensaje de "no hay fotos"
-    
-    // TODO: Conectar con Firebase Storage
-    // TODO: Mostrar fotos dinámicamente
-}
-
-// ============ CONTADOR DE PARTICIPANTES ============
-function updateParticipantsCount() {
-    // Aquí contaremos participantes desde Firebase
-    const participantsCountEl = document.getElementById('participantsCount');
-    
-    // TODO: Obtener número real de Firebase
-    participantsCountEl.textContent = '0';
+function resetUploadForm() {
+    document.getElementById('uploaderName').value = '';
+    document.getElementById('photoFile').value = '';
+    document.getElementById('uploadPreview').innerHTML = '';
 }
 
 // ============ SMOOTH SCROLL ============
@@ -171,7 +187,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 // ============ ANIMACIONES AL HACER SCROLL ============
 const observerOptions = {
     threshold: 0.1,
-    rootMargin: '0px 0px -100px 0px'
+    rootMargin: '0px 0px -50px 0px'
 };
 
 const observer = new IntersectionObserver(function(entries) {
@@ -185,8 +201,10 @@ const observer = new IntersectionObserver(function(entries) {
 
 // Observar secciones para animaciones
 document.querySelectorAll('section').forEach(section => {
-    section.style.opacity = '0';
-    section.style.transform = 'translateY(30px)';
-    section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-    observer.observe(section);
+    if (section.id !== 'hero') {
+        section.style.opacity = '0';
+        section.style.transform = 'translateY(30px)';
+        section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        observer.observe(section);
+    }
 });
