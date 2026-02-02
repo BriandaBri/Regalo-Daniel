@@ -38,16 +38,26 @@ function updateCountdown() {
 // ============ PAYPAL ============
 function initPayPal() {
     const paypalBtn = document.getElementById('paypalBtn');
+    const donorName = document.getElementById('donorName');
+    const donorMessage = document.getElementById('donorMessage');
     
     paypalBtn.addEventListener('click', function(e) {
         e.preventDefault();
         
-        // Por ahora mostramos un mensaje
-        // Aquí pondrás tu enlace de PayPal.me o botón de PayPal
-        alert('Próximamente: Aquí irá tu enlace de PayPal para las aportaciones.\n\nPor ejemplo: paypal.me/tunombre');
+        const name = donorName.value.trim();
         
-        // TODO: Cambiar el href del botón por tu enlace real de PayPal
-        // Ejemplo: window.location.href = 'https://paypal.me/tunombre';
+        if (!name) {
+            alert('Por favor, introduce tu nombre');
+            return;
+        }
+        
+        // Por ahora mostramos un mensaje
+        // Aquí pondrás tu enlace de PayPal.me o configurarás el botón oficial
+        alert(`¡Gracias ${name}!\n\nPróximamente aquí se redirigirá a PayPal para completar la aportación.\n\nRecuerda configurar tu enlace de PayPal.me`);
+        
+        // TODO: Guardar nombre y mensaje en Firebase
+        // TODO: Redirigir a PayPal
+        // window.location.href = 'https://paypal.me/tunombre';
     });
 }
 
