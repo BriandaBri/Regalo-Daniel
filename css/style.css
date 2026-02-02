@@ -135,10 +135,27 @@ section p {
 
 /* Contador Section */
 #countdown-section {
-    background: #A4BDDE;
+    background: url('../img/daniel-hero.jpeg') center/cover no-repeat;
+    position: relative;
     color: var(--white);
     border-top: 3px solid #60a5fa;
     border-bottom: 3px solid #60a5fa;
+}
+
+#countdown-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(164, 189, 222, 0.85);
+    z-index: 0;
+}
+
+#countdown-section .container {
+    position: relative;
+    z-index: 1;
 }
 
 #countdown-section h2 {
@@ -207,7 +224,24 @@ section p {
 
 /* Aportaciones Section */
 #aportaciones {
-    background: #1e3a8a;
+    background: url('../img/daniel-hero.jpeg') center/cover no-repeat;
+    position: relative;
+}
+
+#aportaciones::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(30, 58, 138, 0.9);
+    z-index: 0;
+}
+
+#aportaciones .container {
+    position: relative;
+    z-index: 1;
 }
 
 #aportaciones h2,
@@ -388,7 +422,24 @@ section p {
 
 /* Galería */
 #galeria {
-    background: #A4BDDE;
+    background: url('../img/daniel-hero.jpeg') center/cover no-repeat;
+    position: relative;
+}
+
+#galeria::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(164, 189, 222, 0.85);
+    z-index: 0;
+}
+
+#galeria .container {
+    position: relative;
+    z-index: 1;
 }
 
 #galeria h2 {
