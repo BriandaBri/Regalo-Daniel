@@ -161,7 +161,7 @@ function initUploadModal() {
     });
 
     // Subir foto
-    submitBtn.addEventListener('click', function() {
+    submitBtn.addEventListener('click', async function() {
         const name = document.getElementById('uploaderName').value.trim();
         const file = photoFile.files[0];
 
@@ -174,16 +174,64 @@ function initUploadModal() {
             alert('Por favor, selecciona una foto');
             return;
         }
-
-        // Aquí iría la lógica de subida a Firebase
-        alert(`¡Gracias ${name}!\n\nTu foto se subirá cuando configuremos Firebase.\n\nPor ahora esta es una vista previa del diseño.`);
         
-        modal.style.display = 'none';
-        resetUploadForm();
+        // Validar tamaño (máximo 5MB)
+        if (file.size > 5 * 1024 * 1024) {
+            alert('La foto es demasiado grande. Máximo 5MB.');
+            return;
+        }
 
-        // TODO: Subir foto a Firebase Storage
-        // TODO: Guardar metadata en Firestore
-        // TODO: Actualizar galería
+        // Subir a Firebase Storage
+        try {
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Subiendo...';
+            
+            const storage = window.firebaseStorage;
+            const storageRef = window.firebaseStorageRef;
+            const uploadBytes = window.firebaseUploadBytes;
+            const getDownloadURL = window.firebaseGetDownloadURL;
+            
+            // Crear referencia con nombre único
+            const timestamp = Date.now();
+            const fileName = `${timestamp}_${file.name}`;
+            const photoRef = storageRef(storage, `fotos/${fileName}`);
+            
+            // Subir archivo
+            await uploadBytes(photoRef, file);
+            
+            // Obtener URL
+            const url = await getDownloadURL(photoRef);
+            
+            // Guardar metadata en Firestore
+            const db = window.firebaseDb;
+            const addDoc = window.firebaseAddDoc;
+            const collection = window.firebaseCollection;
+            const serverTimestamp = window.firebaseTimestamp;
+            
+            await addDoc(collection(db, 'fotos'), {
+                nombre: name,
+                url: url,
+                fileName: fileName,
+                fecha: serverTimestamp()
+            });
+            
+            alert(`¡Gracias ${name}!\n\nTu foto se ha subido correctamente.`);
+            
+            modal.style.display = 'none';
+            resetUploadForm();
+            
+            // Recargar galería
+            loadPhotos();
+            
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Subir Foto';
+            
+        } catch (error) {
+            console.error('Error al subir:', error);
+            alert('Hubo un error al subir la foto. Por favor, inténtalo de nuevo.');
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Subir Foto';
+        }
     });
 }
 
@@ -192,6 +240,53 @@ function resetUploadForm() {
     document.getElementById('photoFile').value = '';
     document.getElementById('uploadPreview').innerHTML = '';
 }
+
+// ============ CARGAR FOTOS DESDE FIREBASE ============
+async function loadPhotos() {
+    try {
+        const db = window.firebaseDb;
+        const collection = window.firebaseCollection;
+        const getDocs = window.firebaseGetDocs;
+        const query = window.firebaseQuery;
+        const orderBy = window.firebaseOrderBy;
+        
+        // Obtener fotos ordenadas por fecha (más recientes primero)
+        const fotosQuery = query(collection(db, 'fotos'), orderBy('fecha', 'desc'));
+        const querySnapshot = await getDocs(fotosQuery);
+        
+        const photosGrid = document.getElementById('photosGrid');
+        
+        if (querySnapshot.empty) {
+            photosGrid.innerHTML = '<div class="no-photos"><p>Aún no hay fotos. ¡Sé el primero en compartir un recuerdo con Dani!</p></div>';
+            return;
+        }
+        
+        // Limpiar galería
+        photosGrid.innerHTML = '';
+        
+        // Añadir cada foto
+        querySnapshot.forEach((doc) => {
+            const data = doc.data();
+            const photoItem = document.createElement('div');
+            photoItem.className = 'photo-item';
+            photoItem.innerHTML = `
+                <img src="${data.url}" alt="Foto de ${data.nombre}" loading="lazy">
+                <div class="photo-info">
+                    <strong>${data.nombre}</strong>
+                </div>
+            `;
+            photosGrid.appendChild(photoItem);
+        });
+        
+    } catch (error) {
+        console.error('Error al cargar fotos:', error);
+    }
+}
+
+// Cargar fotos al inicio
+document.addEventListener('DOMContentLoaded', function() {
+    loadPhotos();
+});
 
 // ============ SMOOTH SCROLL ============
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {

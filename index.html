@@ -70,8 +70,9 @@
                         💸 Enviar por Bizum
                     </button>
                 </div>
-                <p class="sorteo-info-small">Todas las aportaciones entran en un sorteo especial</p>
             </div>
+            
+            <p class="sorteo-info-small">Todas las aportaciones entran en un sorteo especial</p>
 
             <div class="sorteo-info">
                 <p class="sorteo-text">
@@ -141,7 +142,8 @@
     <!-- Firebase -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js";
-        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, serverTimestamp, query, orderBy, getDocs } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-firestore.js";
+        import { getStorage, ref, uploadBytes, getDownloadURL, listAll } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-storage.js";
         
         const firebaseConfig = {
             apiKey: "AIzaSyARC2x2JGMpGTYJGhe_lgsC5s5qYCKyTN8",
@@ -154,12 +156,21 @@
         
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
+        const storage = getStorage(app);
         
         // Hacer accesibles globalmente
         window.firebaseDb = db;
+        window.firebaseStorage = storage;
         window.firebaseAddDoc = addDoc;
         window.firebaseCollection = collection;
         window.firebaseTimestamp = serverTimestamp;
+        window.firebaseQuery = query;
+        window.firebaseOrderBy = orderBy;
+        window.firebaseGetDocs = getDocs;
+        window.firebaseStorageRef = ref;
+        window.firebaseUploadBytes = uploadBytes;
+        window.firebaseGetDownloadURL = getDownloadURL;
+        window.firebaseListAll = listAll;
     </script>
     
     <script src="js/script.js"></script>
