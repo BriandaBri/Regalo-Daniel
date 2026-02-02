@@ -136,7 +136,7 @@ section p {
 
 /* Contador Section */
 #countdown-section {
-    background: #334155;
+    background: #A4BDDE;
     color: var(--white);
     border-top: 3px solid #60a5fa;
     border-bottom: 3px solid #60a5fa;
@@ -208,7 +208,12 @@ section p {
 
 /* Aportaciones Section */
 #aportaciones {
-    background: rgba(243, 244, 246, 0.95);
+    background: #1e3a8a;
+}
+
+#aportaciones h2,
+#aportaciones p {
+    color: #ffffff;
 }
 
 .aportacion-text {
@@ -220,7 +225,7 @@ section p {
 }
 
 .aportacion-text strong {
-    color: var(--primary-blue);
+    color: #fbbf24;
     font-size: 1.5em;
 }
 
@@ -279,7 +284,7 @@ section p {
 .payment-note {
     margin-top: 12px;
     font-size: 0.9rem;
-    color: var(--text-light);
+    color: #ffffff;
     text-align: center;
     font-style: italic;
 }
@@ -384,7 +389,7 @@ section p {
 
 /* Galería */
 #galeria {
-    background: rgba(255, 255, 255, 0.95);
+    background: #A4BDDE;
 }
 
 .photos-grid {
