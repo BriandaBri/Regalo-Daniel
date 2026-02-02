@@ -112,10 +112,9 @@ body {
     }
 }
 
-/* Secciones con fondo semitransparente */
+/* Secciones */
 section:not(#hero) {
     padding: 60px 20px;
-    background: rgba(255, 255, 255, 0.95);
     margin: 0;
 }
 
@@ -143,8 +142,8 @@ section p {
 }
 
 #countdown-section h2 {
-    color: var(--white);
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    color: #1e3a8a;
+    text-shadow: none;
 }
 
 .countdown {
@@ -390,6 +389,14 @@ section p {
 /* Galería */
 #galeria {
     background: #A4BDDE;
+}
+
+#galeria h2 {
+    color: #1e3a8a;
+}
+
+#galeria p {
+    color: #1f2937;
 }
 
 .photos-grid {
