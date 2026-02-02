@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎉 Cumpleaños de Daniel - 07/03/2026</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Hero Section - Foto principal y contador -->
+    <section id="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <img src="img/daniel-hero.jpg" alt="Daniel" class="hero-image">
+            <h1>¡Celebremos el cumpleaños de Daniel!</h1>
+            <div id="countdown" class="countdown">
+                <div class="countdown-item">
+                    <span id="days" class="countdown-number">00</span>
+                    <span class="countdown-label">Días</span>
+                </div>
+                <div class="countdown-item">
+                    <span id="hours" class="countdown-number">00</span>
+                    <span class="countdown-label">Horas</span>
+                </div>
+                <div class="countdown-item">
+                    <span id="minutes" class="countdown-number">00</span>
+                    <span class="countdown-label">Minutos</span>
+                </div>
+                <div class="countdown-item">
+                    <span id="seconds" class="countdown-number">00</span>
+                    <span class="countdown-label">Segundos</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sobre Daniel -->
+    <section id="about">
+        <div class="container">
+            <h2>🎂 El Cumpleañero</h2>
+            <p class="about-text">
+                Daniel es una persona increíble que merece una celebración especial. 
+                Este 7 de marzo de 2026 cumple años y queremos sorprenderle con algo único:
+                <strong>una botella de licor personalizada con su foto</strong> y todos vuestros buenos deseos.
+            </p>
+        </div>
+    </section>
+
+    <!-- Objetivo del Regalo -->
+    <section id="objetivo">
+        <div class="container">
+            <h2>🎁 El Regalo</h2>
+            <div class="objetivo-content">
+                <div class="objetivo-card">
+                    <div class="icon">🍾</div>
+                    <h3>Licor Premium Personalizado</h3>
+                    <p>Una botella exclusiva con la foto de Daniel y dedicatorias de todos</p>
+                </div>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressBar"></div>
+            </div>
+            <p class="progress-text">
+                <span id="currentAmount">0</span>€ recaudados de <span id="goalAmount">150</span>€
+            </p>
+        </div>
+    </section>
+
+    <!-- Aportaciones -->
+    <section id="aportaciones">
+        <div class="container">
+            <h2>💙 Haz tu Aportación</h2>
+            <p>Cualquier cantidad es bienvenida. ¡Ayúdanos a hacerlo realidad!</p>
+            
+            <div class="aportacion-opciones">
+                <button class="amount-btn" data-amount="5">5€</button>
+                <button class="amount-btn" data-amount="10">10€</button>
+                <button class="amount-btn" data-amount="20">20€</button>
+                <button class="amount-btn" data-amount="50">50€</button>
+                <input type="number" id="customAmount" placeholder="Otra cantidad" min="1">
+            </div>
+
+            <div class="participant-form">
+                <input type="text" id="participantName" placeholder="Tu nombre" required>
+                <input type="email" id="participantEmail" placeholder="Tu email" required>
+                <textarea id="participantMessage" placeholder="Mensaje para Daniel (opcional)" rows="3"></textarea>
+                
+                <div class="photo-upload">
+                    <label for="photoUpload" class="upload-label">
+                        📸 Sube una foto con Daniel (opcional)
+                    </label>
+                    <input type="file" id="photoUpload" accept="image/*">
+                    <div id="photoPreview"></div>
+                </div>
+
+                <button id="contributeBtn" class="btn-primary">Continuar al Pago</button>
+            </div>
+
+            <p class="disclaimer">
+                ⚡ Todos los participantes entran automáticamente en el sorteo de una sorpresa especial
+            </p>
+        </div>
+    </section>
+
+    <!-- Galería de Fotos -->
+    <section id="galeria">
+        <div class="container">
+            <h2>📸 Galería de Recuerdos</h2>
+            <p>Fotos compartidas por los participantes</p>
+            <div id="photosGrid" class="photos-grid">
+                <!-- Las fotos se cargarán dinámicamente desde Firebase -->
+                <div class="no-photos">
+                    <p>Aún no hay fotos. ¡Sé el primero en compartir un recuerdo!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sorteo -->
+    <section id="sorteo">
+        <div class="container">
+            <h2>🎲 Sorteo Especial</h2>
+            <div class="sorteo-card">
+                <div class="icon">🎁</div>
+                <h3>Participa y Gana</h3>
+                <p>Todos los que aporten entrarán automáticamente en el sorteo de una sorpresa especial el día del cumpleaños</p>
+                <div class="participants-count">
+                    <strong id="participantsCount">0</strong> participantes
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>Hecho con 💙 para Daniel</p>
+            <p class="small">© 2026 - Cumpleaños Daniel</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/script.js"></script>
+</body>
+</html>
