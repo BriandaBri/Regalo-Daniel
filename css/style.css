@@ -275,7 +275,19 @@ section p {
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
 }
 
+.payment-form input[type="number"] {
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 15px;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: inherit;
+    transition: border-color 0.3s ease;
+}
+
 .payment-form input[type="text"],
+.payment-form input[type="number"],
 .payment-form textarea {
     width: 100%;
     padding: 12px 15px;
@@ -290,13 +302,13 @@ section p {
 .payment-form input:focus,
 .payment-form textarea:focus {
     outline: none;
-    border-color: #0070ba;
+    border-color: #37bbed;
 }
 
-.btn-paypal {
+.btn-bizum {
     width: 100%;
     display: block;
-    background: linear-gradient(135deg, #0070ba 0%, #1546a0 100%);
+    background: linear-gradient(135deg, #37bbed 0%, #1a8cba 100%);
     color: var(--white);
     padding: 15px;
     font-size: 1.1rem;
@@ -305,13 +317,13 @@ section p {
     border: none;
     cursor: pointer;
     transition: all 0.3s ease;
-    box-shadow: 0 5px 20px rgba(0, 112, 186, 0.3);
+    box-shadow: 0 5px 20px rgba(55, 187, 237, 0.3);
 }
 
-.btn-paypal:hover {
+.btn-bizum:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(0, 112, 186, 0.5);
-    background: linear-gradient(135deg, #005ea6 0%, #123d8f 100%);
+    box-shadow: 0 8px 25px rgba(55, 187, 237, 0.5);
+    background: linear-gradient(135deg, #1a8cba 0%, #156a8f 100%);
 }
 
 .payment-note {
@@ -599,6 +611,89 @@ section p {
     max-width: 100%;
     max-height: 300px;
     border-radius: 10px;
+}
+
+/* Modal Bizum */
+.bizum-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    animation: fadeIn 0.3s ease;
+}
+
+.bizum-modal-content {
+    background: linear-gradient(135deg, #37bbed 0%, #1a8cba 100%);
+    margin: 10% auto;
+    padding: 40px;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 500px;
+    text-align: center;
+    color: white;
+    animation: slideIn 0.3s ease;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+.bizum-modal-content h3 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.bizum-number {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 20px;
+    border-radius: 15px;
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin: 20px 0;
+    letter-spacing: 2px;
+    border: 3px solid rgba(255, 255, 255, 0.5);
+}
+
+.bizum-instructions {
+    font-size: 1.1rem;
+    margin: 20px 0;
+    line-height: 1.6;
+}
+
+.btn-copy {
+    background: rgba(255, 255, 255, 0.3);
+    color: white;
+    padding: 12px 30px;
+    font-size: 1rem;
+    font-weight: bold;
+    border: 2px solid white;
+    border-radius: 50px;
+    cursor: pointer;
+    margin: 10px;
+    transition: all 0.3s ease;
+}
+
+.btn-copy:hover {
+    background: white;
+    color: #37bbed;
+}
+
+.btn-close-modal {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    padding: 12px 30px;
+    font-size: 1rem;
+    font-weight: bold;
+    border: 2px solid white;
+    border-radius: 50px;
+    cursor: pointer;
+    margin: 10px;
+    transition: all 0.3s ease;
+}
+
+.btn-close-modal:hover {
+    background: rgba(255, 255, 255, 0.3);
 }
 
 /* Footer */

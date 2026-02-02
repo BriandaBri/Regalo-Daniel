@@ -13,9 +13,7 @@
         <div class="hero-content">
             <img src="img/daniel-hero.jpeg" alt="Daniel" class="hero-image">
             <h1>¡Celebremos el cumpleaños de Daniel!</h1>
-            <p class="hero-description">Ya queda poco, llega el 30 cumpleaños de Daniel. 
-			De momento ha conseguido no ser alcohólico, pero vamos a ayudarle a sobrellevar esta crisis existencial.
-			Bienvenidos a la página oficial de su cumpleaños.</p>
+            <p class="hero-description">Descripción de daniel o algo</p>
         </div>
     </section>
 
@@ -54,15 +52,16 @@
             </p>
             
             <p class="aportacion-text">
-                No me seas cutre.
+                No me seas cutre que vas a todo pagado.
             </p>
 
             <div class="payment-section">
                 <div class="payment-form">
                     <input type="text" id="donorName" placeholder="Tu nombre" required>
+                    <input type="number" id="donorAmount" placeholder="Cantidad (€)" min="1" required>
                     <textarea id="donorMessage" placeholder="Mensaje para Daniel (opcional)" rows="3"></textarea>
-                    <button id="paypalBtn" class="btn-paypal">
-                        💳 Aportar con PayPal
+                    <button id="bizumBtn" class="btn-bizum">
+                        💸 Enviar por Bizum
                     </button>
                     <p class="payment-note">Thanks!</p>
                 </div>
@@ -85,7 +84,7 @@
             <div id="photosGrid" class="photos-grid">
                 <!-- Las fotos se cargarán dinámicamente desde Firebase -->
                 <div class="no-photos">
-                    <p>Aún no hay fotos. ¡Empieza!</p>
+                    <p>Aún no hay fotos. ¡Sé el primero en compartir un recuerdo con Dani!</p>
                 </div>
             </div>
 
@@ -100,9 +99,26 @@
     <!-- Footer -->
     <footer>
         <div class="container">
+            <p>Web para el cumpleaños de Daniel</p>
             <p class="small">© 2026 - Cumpleaños Daniel</p>
         </div>
     </footer>
+
+    <!-- Modal Bizum -->
+    <div id="bizumModal" class="bizum-modal">
+        <div class="bizum-modal-content">
+            <h3>💸 Envía tu aportación</h3>
+            <p class="bizum-instructions">
+                Haz tu Bizum a este número y ¡listo!
+            </p>
+            <div class="bizum-number" id="bizumNumber">601 187 600</div>
+            <button id="copyBizumBtn" class="btn-copy">📋 Copiar número</button>
+            <button id="closeBizumModal" class="btn-close-modal">Cerrar</button>
+            <p class="bizum-instructions" style="font-size: 0.9rem; margin-top: 20px; opacity: 0.8;">
+                Tu aportación ha sido registrada. ¡Gracias!
+            </p>
+        </div>
+    </div>
 
     <!-- Modal para subir foto (oculto por defecto) -->
     <div id="uploadModal" class="modal">
@@ -116,7 +132,30 @@
         </div>
     </div>
 
-    <!-- Scripts -->
+    <!-- Firebase -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js";
+        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-firestore.js";
+        
+        const firebaseConfig = {
+            apiKey: "AIzaSyARC2x2JGMpGTYJGhe_lgsC5s5qYCKyTN8",
+            authDomain: "cumple-daniel-a2d00.firebaseapp.com",
+            projectId: "cumple-daniel-a2d00",
+            storageBucket: "cumple-daniel-a2d00.firebasestorage.app",
+            messagingSenderId: "34440157189",
+            appId: "1:34440157189:web:da4a00a66499eacb06246c"
+        };
+        
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        
+        // Hacer accesibles globalmente
+        window.firebaseDb = db;
+        window.firebaseAddDoc = addDoc;
+        window.firebaseCollection = collection;
+        window.firebaseTimestamp = serverTimestamp;
+    </script>
+    
     <script src="js/script.js"></script>
 </body>
 </html>

@@ -35,29 +35,86 @@ function updateCountdown() {
     document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
 }
 
-// ============ PAYPAL ============
+// ============ BIZUM CON FIREBASE ============
 function initPayPal() {
-    const paypalBtn = document.getElementById('paypalBtn');
+    const bizumBtn = document.getElementById('bizumBtn');
     const donorName = document.getElementById('donorName');
+    const donorAmount = document.getElementById('donorAmount');
     const donorMessage = document.getElementById('donorMessage');
+    const bizumModal = document.getElementById('bizumModal');
+    const closeBizumModal = document.getElementById('closeBizumModal');
+    const copyBizumBtn = document.getElementById('copyBizumBtn');
     
-    paypalBtn.addEventListener('click', function(e) {
+    bizumBtn.addEventListener('click', async function(e) {
         e.preventDefault();
         
         const name = donorName.value.trim();
+        const amount = parseInt(donorAmount.value);
+        const message = donorMessage.value.trim();
         
         if (!name) {
             alert('Por favor, introduce tu nombre');
             return;
         }
         
-        // Por ahora mostramos un mensaje
-        // Aquí pondrás tu enlace de PayPal.me o configurarás el botón oficial
-        alert(`¡Gracias ${name}!\n\nPróximamente aquí se redirigirá a PayPal para completar la aportación.\n\nRecuerda configurar tu enlace de PayPal.me`);
+        if (!amount || amount <= 0) {
+            alert('Por favor, introduce una cantidad válida');
+            return;
+        }
         
-        // TODO: Guardar nombre y mensaje en Firebase
-        // TODO: Redirigir a PayPal
-        // window.location.href = 'https://paypal.me/tunombre';
+        // Guardar en Firebase
+        try {
+            const db = window.firebaseDb;
+            const addDoc = window.firebaseAddDoc;
+            const collection = window.firebaseCollection;
+            const serverTimestamp = window.firebaseTimestamp;
+            
+            await addDoc(collection(db, 'aportaciones'), {
+                nombre: name,
+                cantidad: amount,
+                mensaje: message || '',
+                fecha: serverTimestamp()
+            });
+            
+            console.log('Aportación guardada en Firebase');
+            
+            // Mostrar modal con número de Bizum
+            bizumModal.style.display = 'block';
+            
+            // Limpiar formulario
+            donorName.value = '';
+            donorAmount.value = '';
+            donorMessage.value = '';
+            
+        } catch (error) {
+            console.error('Error al guardar:', error);
+            alert('Hubo un error al guardar. Por favor, inténtalo de nuevo.');
+        }
+    });
+    
+    // Cerrar modal
+    closeBizumModal.addEventListener('click', function() {
+        bizumModal.style.display = 'none';
+    });
+    
+    // Cerrar al hacer click fuera
+    window.addEventListener('click', function(event) {
+        if (event.target == bizumModal) {
+            bizumModal.style.display = 'none';
+        }
+    });
+    
+    // Copiar número de Bizum
+    copyBizumBtn.addEventListener('click', function() {
+        const bizumNumber = '601187600';
+        navigator.clipboard.writeText(bizumNumber).then(function() {
+            copyBizumBtn.textContent = '✓ ¡Copiado!';
+            setTimeout(function() {
+                copyBizumBtn.textContent = '📋 Copiar número';
+            }, 2000);
+        }).catch(function(err) {
+            alert('No se pudo copiar. Número: 601 187 600');
+        });
     });
 }
 
