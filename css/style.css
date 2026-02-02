@@ -197,6 +197,33 @@ section p {
     font-weight: bold;
 }
 
+/* Location Section */
+.location-section {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.btn-location {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.2);
+    color: #1e3a8a;
+    padding: 15px 40px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    border-radius: 50px;
+    text-decoration: none;
+    border: 3px solid #1e3a8a;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn-location:hover {
+    background: #1e3a8a;
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
 /* About Section con humor */
 #about {
     background: rgba(255, 255, 255, 0.95);
